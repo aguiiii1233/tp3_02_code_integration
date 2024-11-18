@@ -79,6 +79,7 @@ void task_test_init(void *parameters)
 	uint32_t			tick;
 
 	/* Print out: Task Initialized */
+
 	LOGGER_LOG("  %s is running - %s\r\n", GET_NAME(task_test_init), p_task_test);
 	LOGGER_LOG("  %s is a %s\r\n", GET_NAME(task_test), p_task_test_);
 
@@ -94,6 +95,7 @@ void task_test_init(void *parameters)
 	LOGGER_LOG("   %s = %lu", GET_NAME(tick), (uint32_t)tick);
 
     displayInit( DISPLAY_CONNECTION_GPIO_4BITS );
+	//displayInit( DISPLAY_CONNECTION_GPIO_8BITS );
 
     displayCharPositionWrite(0, 0);
 	displayStringWrite("TdSE Bienvenidos");
@@ -102,6 +104,17 @@ void task_test_init(void *parameters)
 	displayStringWrite("Test Nro: ");
 
 	g_task_test_tick_cnt = G_TASK_TEST_TICK_CNT_INI;
+
+	displayCharPositionWrite(0, 2);
+	displayStringWrite("Temperatura: ");
+
+	char temperatureString[3] = "";
+
+	displayCharPositionWrite(12, 2);
+	displayStringWrite(temperatureString);
+	displayCharPositionWrite(13, 2);
+	displayStringWrite( "0'C" );
+
 }
 
 void task_test_update(void *parameters)

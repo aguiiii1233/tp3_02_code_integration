@@ -2,3 +2,40 @@
    Non-Blocking & Update By Time Code -> Test Code Integration
   
 ...
+
+
+•Verifique cuáles de los pines de D0 a D15 de su placa NUCLEO están disponibles (no usados)
+D0	PA3		NO
+D1	PA2		NO	
+D2	PA10	SI
+D3	PB3		VÁLIDO (Serial Wire Debug, desactivado en el proyecto)
+D4	PB5		SI
+D5	PB4		SI
+D6	PB10	SI	
+D7	PB8		SI
+D8	PA9		SI
+D9	PC7		SI
+D10	PB6		SI
+D11	PA7		SI
+D12	PA6		SI
+D13	PA5		VÁLIDO (Green LED de prueba)
+D14	PB9		SI
+D15	PB8		SI
+
+
+•Función task_test_init()
+Actualiza el puntero al task en ejecución 
+Levanta el valor "tick" (dentro de su estructura task_test_dta_t
+Le agregué que escriba en la 3er línea la temperatura, hay que levantar el dato analógico de medición
+
+•Función displayInit()
+Se define la conexión del display (4BITS) para indicar a la variable display.connection 
+Entra en un IF especial para la condición de I2C
+Constante de initial8BitCommunicationIsCompleted seteada en FALSE
+Entra en una serie de CASE para cada tipo de conexión, donde setea los pines para su funcionamiento y control según la comunicación: MACROS para bits
+
+•Función displayCharPositionWrite(char en posición X, char en posición Y)
+charPositionX 	Es la posición horizontal (columna) del carácter, que debe estar entre 0 y el número máximo de columnas menos 1.
+charPositionY 	Es la posición vertical (línea), que debe estar entre 0 y 3 para un display de 4 líneas.
+Calcular la dirección base correspondiente en la memoria DDRAM. Cada línea del display tiene una dirección inicial específica, definida por las MACROS.
+A la dirección base se le suma el desplazamiento de X
